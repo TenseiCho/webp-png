@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
+from PIL import Image, ImageTk
 import main
 
 def select_input_folder():
@@ -24,23 +25,34 @@ def convert_images():
 # Create the main window
 window = tk.Tk()
 window.title("WebP to PNG Converter")
-
-# Set the window size to 1000x800 pixels
 window.geometry("800x600")
+window.configure(bg="#efe3d7")
+
+# Load the logo image
+logo_image = Image.open("logo.png")
+logo_photo = ImageTk.PhotoImage(logo_image)
+
+# Create a label to display the logo
+logo_label = tk.Label(window, image=logo_photo, bg="#efe3d7")
+logo_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+# Create a frame to hold the buttons
+button_frame = tk.Frame(window, bg="#efe3d7")
+button_frame.pack(side=tk.BOTTOM, pady=20)
 
 # Create input folder selection button
 input_folder_var = tk.StringVar()
-input_folder_button = tk.Button(window, text="Select Input Folder", command=select_input_folder)
-input_folder_button.pack(pady=10)
+input_folder_button = tk.Button(button_frame, text="Input Folder", command=select_input_folder, bg="#215b71", fg="white")
+input_folder_button.pack(side=tk.LEFT, padx=10)
 
 # Create output folder selection button
 output_folder_var = tk.StringVar()
-output_folder_button = tk.Button(window, text="Select Output Folder", command=select_output_folder)
-output_folder_button.pack(pady=10)
+output_folder_button = tk.Button(button_frame, text="Output Folder", command=select_output_folder, bg="#215b71", fg="white")
+output_folder_button.pack(side=tk.LEFT, padx=10)
 
 # Create convert button
-convert_button = tk.Button(window, text="Convert Images", command=convert_images)
-convert_button.pack(pady=10)
+convert_button = tk.Button(button_frame, text="Convert Images", command=convert_images, bg="#215b71", fg="white")
+convert_button.pack(side=tk.LEFT, padx=10)
 
 # Run the main event loop
 window.mainloop()
