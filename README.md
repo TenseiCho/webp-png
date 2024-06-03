@@ -1,6 +1,6 @@
 pip install pillow
-
+run using gui.py
 
 # What to add
-Graphical User Interface.
-Option to select input folder and output folder on computer.
+highlight the buttons like r/a/dio
+make it an executable
