@@ -2,14 +2,20 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
 import main
+import os
+import configparser
 
 def select_input_folder():
-    input_folder = filedialog.askdirectory(title="Select Input Folder")
-    input_folder_var.set(input_folder)
+    input_folder = filedialog.askdirectory(title="Select Input Folder", initialdir=input_folder_var.get())
+    if input_folder:
+        input_folder_var.set(input_folder)
+        save_config()
 
 def select_output_folder():
-    output_folder = filedialog.askdirectory(title="Select Output Folder")
-    output_folder_var.set(output_folder)
+    output_folder = filedialog.askdirectory(title="Select Output Folder", initialdir=output_folder_var.get())
+    if output_folder:
+        output_folder_var.set(output_folder)
+        save_config()
 
 def convert_images():
     input_folder = input_folder_var.get()
@@ -21,6 +27,23 @@ def convert_images():
 
     converted_count = main.convert_webp_to_png(input_folder, output_folder)
     messagebox.showinfo("Conversion Complete", f"Converted {converted_count} images.")
+
+def load_config():
+    if os.path.exists("config.ini"):
+        config = configparser.ConfigParser()
+        config.read("config.ini")
+        input_folder = config.get("Folders", "InputFolder", fallback="")
+        output_folder = config.get("Folders", "OutputFolder", fallback="")
+        input_folder_var.set(input_folder)
+        output_folder_var.set(output_folder)
+
+def save_config():
+    config = configparser.ConfigParser()
+    config.add_section("Folders")
+    config.set("Folders", "InputFolder", input_folder_var.get())
+    config.set("Folders", "OutputFolder", output_folder_var.get())
+    with open("config.ini", "w") as config_file:
+        config.write(config_file)
 
 # Create the main window
 window = tk.Tk()
@@ -53,6 +76,9 @@ output_folder_button.pack(side=tk.LEFT, padx=10)
 # Create convert button
 convert_button = tk.Button(button_frame, text="Convert Images", command=convert_images, bg="#215b71", fg="white")
 convert_button.pack(side=tk.LEFT, padx=10)
+
+# Load the saved configuration
+load_config()
 
 # Run the main event loop
 window.mainloop()
