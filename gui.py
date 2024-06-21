@@ -45,6 +45,12 @@ def save_config():
     with open("config.ini", "w") as config_file:
         config.write(config_file)
 
+def on_enter(e):
+    e.widget['background'] = '#3a7d95'  # Lighter shade for hover
+
+def on_leave(e):
+    e.widget['background'] = '#215b71'  # Original color
+
 # Create the main window
 window = tk.Tk()
 window.title("WebP to PNG Converter")
@@ -67,15 +73,21 @@ button_frame.pack(side=tk.BOTTOM, pady=20)
 input_folder_var = tk.StringVar()
 input_folder_button = tk.Button(button_frame, text="Input Folder", command=select_input_folder, bg="#215b71", fg="white")
 input_folder_button.pack(side=tk.LEFT, padx=10)
+input_folder_button.bind("<Enter>", on_enter)
+input_folder_button.bind("<Leave>", on_leave)
 
 # Create output folder selection button
 output_folder_var = tk.StringVar()
 output_folder_button = tk.Button(button_frame, text="Output Folder", command=select_output_folder, bg="#215b71", fg="white")
 output_folder_button.pack(side=tk.LEFT, padx=10)
+output_folder_button.bind("<Enter>", on_enter)
+output_folder_button.bind("<Leave>", on_leave)
 
 # Create convert button
 convert_button = tk.Button(button_frame, text="Convert Images", command=convert_images, bg="#215b71", fg="white")
 convert_button.pack(side=tk.LEFT, padx=10)
+convert_button.bind("<Enter>", on_enter)
+convert_button.bind("<Leave>", on_leave)
 
 # Load the saved configuration
 load_config()
