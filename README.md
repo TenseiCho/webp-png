@@ -9,3 +9,7 @@ run using gui.py
 # Linux Ubuntu
 - sudo apt-get install python3-tk
 - sudo apt-get install python3-pil python3-pil.imagetk
+
+# Release  
+- pip install PyGithub
+- pip install pyinstaller
