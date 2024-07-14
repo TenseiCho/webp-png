@@ -25,7 +25,7 @@ def convert_images():
         messagebox.showerror("Error", "Please select both input and output folders.")
         return
 
-    converted_count = main.convert_webp_to_png(input_folder, output_folder)
+    converted_count = logic.convert_webp_to_png(input_folder, output_folder)
     messagebox.showinfo("Conversion Complete", f"Converted {converted_count} images.")
 
 def load_config():
